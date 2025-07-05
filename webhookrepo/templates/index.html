@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Events Monitor</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .event { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>GitHub Events</h1>
+    <div id="events"></div>
+
+    <script>
+        function fetchEvents() {
+            fetch('/events')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('events');
+                container.innerHTML = '';
+                data.forEach(event => {
+                    let message = '';
+                    const time = new Date(event.timestamp).toUTCString();
+                    if(event.action === 'push') {
+                        message = `${event.author} pushed to ${event.to_branch} on ${time}`;
+                    } else if(event.action === 'pull_request') {
+                        message = `${event.author} submitted a pull request from ${event.from_branch} to ${event.to_branch} on ${time}`;
+                    } else if(event.action === 'merge') {
+                        message = `${event.author} merged branch ${event.from_branch} to ${event.to_branch} on ${time}`;
+                    }
+                    container.innerHTML += `<div class="event">${message}</div>`;
+                });
+            });
+        }
+        fetchEvents();
+        setInterval(fetchEvents, 15000);
+    </script>
+</body>
+</html>
