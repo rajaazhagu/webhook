@@ -1,3 +1,4 @@
+<img width="1440" alt="Screenshot 2025-07-07 at 1 59 45 PM" src="https://github.com/user-attachments/assets/570363a1-da1b-43d4-b557-511298540331" />
 
 
 This project demonstrates capturing GitHub webhook events and displaying them in a minimal UI. The project receives GitHub webhook events (push, pull request, merge) and stores them in MongoDB Atlas, then displays them via a Flask-powered web interface.
